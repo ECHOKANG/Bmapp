@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>农夫山泉品牌营销案例报告</title>
+
+<!-- === FONTS: Cormorant (elegant serif) + IBM Plex Sans + Noto SC for Chinese === -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ===========================================
+   THEME TOKENS — Dark Botanical (natural spring)
+   =========================================== */
+:root {
+    --bg-primary: #0c110e;
+    --bg-secondary: #121a15;
+    --text-primary: #ecefe9;
+    --text-secondary: #9aa79c;
+    --accent-spring: #6fce9f;   /* spring green */
+    --accent-teal: #3fa889;     /* deep teal water */
+    --accent-gold: #d4b483;     /* warm gold */
+    --accent-red: #d95f52;      /* iconic red label */
+    --line: rgba(111,206,159,0.18);
+
+    --font-display: "Cormorant", "Noto Serif SC", serif;
+    --font-cn-display: "Noto Serif SC", "Cormorant", serif;
+    --font-body: "IBM Plex Sans", "Noto Sans SC", sans-serif;
+
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --h3-size: clamp(1rem, 2.5vw, 1.6rem);
+    --body-size: clamp(0.75rem, 1.5vw, 1.05rem);
+    --small-size: clamp(0.65rem, 1vw, 0.85rem);
+
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 1.6rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration-normal: 0.7s;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* === PASTE: viewport-base.css === */
+html, body { height: 100%; overflow-x: hidden; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+.slide {
+    width: 100vw; height: 100vh; height: 100dvh;
+    overflow: hidden; scroll-snap-align: start;
+    display: flex; flex-direction: column; position: relative;
+}
+.slide-content {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    max-height: 100%; overflow: hidden; padding: var(--slide-padding);
+    position: relative; z-index: 2;
+}
+.card, .container, .content-box { max-width: min(92vw, 1080px); max-height: min(82vh, 720px); }
+.feature-list, .bullet-list { gap: clamp(0.4rem, 1vh, 1rem); }
+.feature-list li, .bullet-list li { font-size: var(--body-size); line-height: 1.5; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(0.5rem, 1.5vw, 1rem); }
+img, .image-container { max-width: 100%; max-height: min(50vh, 400px); object-fit: contain; }
+
+@media (max-height: 700px) {
+    :root { --slide-padding: clamp(0.75rem, 3vw, 2rem); --content-gap: clamp(0.4rem, 1.5vw, 1rem); --title-size: clamp(1.25rem, 4.5vw, 2.5rem); --h2-size: clamp(1rem, 3vw, 1.75rem); }
+}
+@media (max-height: 600px) {
+    :root { --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem); --content-gap: clamp(0.3rem, 1vw, 0.75rem); --title-size: clamp(1.1rem, 4vw, 2rem); --body-size: clamp(0.7rem, 1.2vw, 0.95rem); }
+    .nav-dots, .keyboard-hint, .decorative { display: none; }
+}
+@media (max-height: 500px) {
+    :root { --slide-padding: clamp(0.4rem, 2vw, 1rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --h2-size: clamp(0.9rem, 2.5vw, 1.25rem); --body-size: clamp(0.65rem, 1vw, 0.85rem); }
+}
+@media (max-width: 600px) {
+    :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+    .grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+    html { scroll-behavior: auto; }
+}
+
+/* ===========================================
+   ATMOSPHERE — abstract soft gradient shapes
+   =========================================== */
+.slide::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background:
+        radial-gradient(ellipse 40vw 40vw at 82% 18%, rgba(63,168,137,0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 46vw 46vw at 12% 88%, rgba(111,206,159,0.10) 0%, transparent 62%),
+        var(--bg-primary);
+}
+.orb {
+    position: absolute; border-radius: 50%; filter: blur(60px);
+    z-index: 1; pointer-events: none; opacity: 0.5;
+}
+
+/* ===========================================
+   TYPOGRAPHY HELPERS
+   =========================================== */
+.eyebrow {
+    font-family: var(--font-body); font-weight: 500;
+    font-size: var(--small-size); letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--accent-spring); display: flex; align-items: center; gap: 0.7em;
+}
+.eyebrow::before { content: ""; width: clamp(24px,3vw,48px); height: 1px; background: var(--accent-spring); }
+
+h1 { font-family: var(--font-cn-display); font-weight: 900; font-size: var(--title-size); line-height: 1.08; letter-spacing: 0.01em; }
+h2 { font-family: var(--font-cn-display); font-weight: 700; font-size: var(--h2-size); line-height: 1.15; }
+h3 { font-family: var(--font-body); font-weight: 600; font-size: var(--h3-size); }
+p, li { font-size: var(--body-size); line-height: 1.55; color: var(--text-secondary); }
+strong { color: var(--text-primary); font-weight: 600; }
+.accent { color: var(--accent-spring); }
+.gold { color: var(--accent-gold); }
+
+.section-num {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(3rem, 12vw, 9rem); line-height: 0.8;
+    color: transparent; -webkit-text-stroke: 1.5px rgba(111,206,159,0.30);
+}
+
+/* ===========================================
+   LAYOUT PRIMITIVES
+   =========================================== */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--content-gap); align-items: center; }
+@media (max-width: 720px){ .two-col { grid-template-columns: 1fr; } }
+
+.stat-row { display: flex; flex-wrap: wrap; gap: clamp(0.5rem,2vw,2rem); }
+.stat { flex: 1; min-width: 130px; }
+.stat .num { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.8rem, 5vw, 3.6rem); line-height: 1; color: var(--accent-spring); }
+.stat .num.gold { color: var(--accent-gold); }
+.stat .num.red { color: var(--accent-red); }
+.stat .lbl { font-size: var(--small-size); color: var(--text-secondary); margin-top: 0.4em; letter-spacing: 0.02em; }
+
+.cards { display: grid; gap: clamp(0.5rem, 1.4vw, 1rem); }
+.cards.c2 { grid-template-columns: repeat(2, 1fr); }
+.cards.c3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 720px){ .cards.c2, .cards.c3 { grid-template-columns: 1fr; } }
+
+.tile {
+    background: linear-gradient(160deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+    border: 1px solid var(--line); border-radius: 14px;
+    padding: clamp(0.7rem, 1.8vw, 1.4rem); backdrop-filter: blur(4px);
+}
+.tile .k { font-family: var(--font-display); font-weight:700; color: var(--accent-gold); font-size: clamp(1.1rem,2.2vw,1.6rem); }
+.tile h3 { color: var(--text-primary); margin-bottom: 0.35em; font-size: var(--h3-size); }
+.tile p { font-size: clamp(0.7rem, 1.2vw, 0.95rem); line-height: 1.45; }
+
+.bullet-list { list-style: none; display: flex; flex-direction: column; }
+.bullet-list li { position: relative; padding-left: 1.4em; }
+.bullet-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-teal); }
+
+.divider { width: 100%; height: 1px; background: var(--line); margin: var(--element-gap) 0; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(0.4rem,1vw,0.9rem); }
+@media (max-width: 720px){ .timeline { grid-template-columns: 1fr; } }
+.tl-item { border-top: 2px solid var(--accent-teal); padding-top: 0.7em; }
+.tl-item .yr { font-family: var(--font-display); font-weight:700; color: var(--accent-spring); font-size: clamp(0.85rem,1.6vw,1.15rem); }
+.tl-item .ttl { color: var(--text-primary); font-weight: 600; font-size: clamp(0.78rem,1.3vw,1rem); margin: 0.2em 0 0.3em; }
+.tl-item p { font-size: clamp(0.65rem,1.1vw,0.85rem); line-height: 1.4; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; font-size: clamp(0.72rem,1.4vw,1.05rem); }
+th, td { text-align: right; padding: clamp(0.4rem,1.1vw,0.9rem) clamp(0.5rem,1.2vw,1rem); border-bottom: 1px solid var(--line); }
+th:first-child, td:first-child { text-align: left; }
+thead th { color: var(--accent-spring); font-weight: 600; letter-spacing: 0.03em; border-bottom: 1px solid var(--accent-teal); }
+tbody td { color: var(--text-secondary); }
+tbody td:first-child { color: var(--text-primary); font-weight: 500; }
+tbody tr:nth-child(even) { background: rgba(255,255,255,0.025); }
+
+.pull-quote { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.4rem, 4vw, 3rem); line-height: 1.25; color: var(--text-primary); }
+.pull-quote .accent { font-style: italic; }
+
+/* ===========================================
+   TITLE SLIDE
+   =========================================== */
+.title-slide .slide-content { align-items: flex-start; }
+.title-slide h1 { font-size: clamp(2.2rem, 8vw, 6rem); }
+.title-tag { font-family: var(--font-display); font-style: italic; font-size: clamp(1.1rem,3vw,2rem); color: var(--accent-gold); }
+.title-meta { display:flex; flex-wrap: wrap; gap: clamp(0.6rem,2vw,2rem); margin-top: var(--content-gap); }
+.title-meta .stat .num { font-size: clamp(1.4rem,3.5vw,2.6rem); }
+
+/* ===========================================
+   NAV — progress bar + dots
+   =========================================== */
+.progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--accent-teal), var(--accent-spring)); z-index: 100; transition: width 0.4s var(--ease-out-expo); }
+.nav-dots { position: fixed; right: clamp(10px,2vw,26px); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+.nav-dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--accent-spring); background: transparent; cursor: pointer; padding: 0; transition: all 0.3s; opacity: 0.4; }
+.nav-dot.active { background: var(--accent-spring); opacity: 1; transform: scale(1.3); }
+.slide-index { position: fixed; left: clamp(12px,2.5vw,32px); bottom: clamp(12px,2.5vw,28px); font-family: var(--font-display); font-size: var(--small-size); color: var(--text-secondary); z-index: 100; letter-spacing:0.1em; }
+.footer-mark { position: absolute; bottom: clamp(10px,2vw,24px); right: var(--slide-padding); font-size: var(--small-size); color: var(--text-secondary); letter-spacing: 0.15em; z-index: 3; }
+
+/* ===========================================
+   REVEAL ANIMATIONS
+   =========================================== */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.reveal:nth-child(1){transition-delay:.05s}.reveal:nth-child(2){transition-delay:.15s}.reveal:nth-child(3){transition-delay:.25s}.reveal:nth-child(4){transition-delay:.35s}.reveal:nth-child(5){transition-delay:.45s}.reveal:nth-child(6){transition-delay:.55s}
+.slide.visible .stagger > * { animation: rise .7s var(--ease-out-expo) backwards; }
+.slide.visible .stagger > *:nth-child(1){animation-delay:.15s}.slide.visible .stagger > *:nth-child(2){animation-delay:.28s}.slide.visible .stagger > *:nth-child(3){animation-delay:.41s}.slide.visible .stagger > *:nth-child(4){animation-delay:.54s}.slide.visible .stagger > *:nth-child(5){animation-delay:.67s}
+@keyframes rise { from { opacity:0; transform: translateY(24px);} to {opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+<div class="progress-bar"></div>
+<nav class="nav-dots" aria-label="幻灯片导航"></nav>
+<div class="slide-index"></div>
+
+<!-- ===== 1. TITLE ===== -->
+<section class="slide title-slide">
+    <div class="orb" style="width:32vw;height:32vw;background:var(--accent-teal);top:-6%;right:-4%;"></div>
+    <div class="slide-content container">
+        <p class="eyebrow reveal">Brand Marketing Case Study · 2025</p>
+        <h1 class="reveal" style="margin:.35em 0 .2em;">农夫山泉<br>品牌营销案例报告</h1>
+        <p class="title-tag reveal">每一滴水都有它的源头</p>
+        <div class="title-meta reveal">
+            <div class="stat"><div class="num">525.53<span style="font-size:.5em;">亿</span></div><div class="lbl">2025 全年营收（元）</div></div>
+            <div class="stat"><div class="num gold">23.6–26.5%</div><div class="lbl">包装水市占率 · 行业第一</div></div>
+            <div class="stat"><div class="num">110.9<span style="font-size:.5em;">亿$</span></div><div class="lbl">品牌价值 · 全球软饮第三</div></div>
+        </div>
+    </div>
+    <div class="footer-mark">从后来者到行业霸主 · 1996 → 2025</div>
+</section>
+
+<!-- ===== 2. KEY FINDINGS ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <p class="eyebrow reveal">Key Findings · 核心发现</p>
+        <h2 class="reveal" style="margin:.3em 0 .1em;">28 年，一部品类突围的教科书</h2>
+        <div class="cards c3 reveal stagger" style="margin-top:var(--content-gap);">
+            <div class="tile"><div class="k">品类分化</div><h3>创造赛道</h3><p>以"天然水 vs 纯净水"之争重新定义品类，从红海突围成为行业代名词。</p></div>
+            <div class="tile"><div class="k">三次跃迁</div><h3>认知升维</h3><p>从"有点甜"到"大自然的搬运工"再到"源头"，层层递进的认知壁垒。</p></div>
+            <div class="tile"><div class="k">13省18县</div><h3>物理护城河</h3><p>不可复制的优质水源地，年均数十亿投入构筑长期竞争优势。</p></div>
+            <div class="tile"><div class="k">复合 +90%</div><h3>长期主义</h3><p>东方树叶坚守 12 年踩中无糖茶风口，2024 茶饮收入首超包装水。</p></div>
+            <div class="tile"><div class="k">V 型反弹</div><h3>危机韧性</h3><p>2024 舆情危机口碑骤降 44.9%，2025 营收首破 500 亿元。</p></div>
+            <div class="tile"><div class="k">1 元→5.7 元</div><h3>营销效率</h3><p>销售费用率降至 21.4%，ROE 常年 37%–46%，行业顶尖。</p></div>
+        </div>
+    </div>
+    <div class="footer-mark">农夫山泉 · Nongfu Spring</div>
+</section>
+
+<!-- ===== 3. 企业概况 ===== -->
+<section class="slide">
+    <div class="orb" style="width:30vw;height:30vw;background:var(--accent-gold);bottom:-8%;left:-6%;opacity:.28;"></div>
+    <div class="slide-content">
+        <div class="two-col">
+            <div>
+                <span class="section-num reveal">01</span>
+                <p class="eyebrow reveal" style="margin-top:.4em;">品牌概述与发展历程</p>
+                <h2 class="reveal" style="margin:.3em 0;">从媒体人到饮料帝国</h2>
+                <p class="reveal">钟睒睒 1996 年创立农夫山泉，首个水源地选址浙江千岛湖。五年《浙江日报》记者经历，赋予他对消费者心智与传播规律的深刻洞察——这成为农夫山泉营销战略的<strong>基因起点</strong>。</p>
+            </div>
+            <div class="reveal">
+                <div class="tile" style="padding:clamp(1rem,2.5vw,1.8rem);">
+                    <p style="color:var(--text-primary);font-weight:500;margin-bottom:.8em;">2025 年综合饮料集团</p>
+                    <ul class="bullet-list">
+                        <li>覆盖<strong>七大品类</strong>：包装水、茶饮料、功能饮料、果汁、咖啡、植物蛋白、纯净水</li>
+                        <li>全年营收 <strong class="accent">525.53 亿元</strong>，净利润 158.68 亿元</li>
+                        <li>市值超 <strong class="accent">5000 亿港元</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">01 · 发展历程</div>
+</section>
+
+<!-- ===== 4. 时间线 ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <p class="eyebrow reveal">Brand Timeline · 品牌发展五阶段</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">1996 → 2025 · 五次战略跃迁</h2>
+        <div class="timeline reveal stagger">
+            <div class="tl-item"><div class="yr">1996–2000</div><div class="ttl">创业突围期</div><p>"有点甜"横空出世，1999 年市占率 16.39% 登顶，2000 年停产纯净水发起品类之争。</p></div>
+            <div class="tl-item"><div class="yr">2001–2007</div><div class="ttl">品牌深耕期</div><p>强化天然水心智，深耕水源地，建立从上游资源到终端渠道的完整价值链。</p></div>
+            <div class="tl-item"><div class="yr">2008–2014</div><div class="ttl">多元扩张期</div><p>推出"大自然的搬运工"，启动多品类，东方树叶、茶π面市，开创纪录片广告。</p></div>
+            <div class="tl-item"><div class="yr">2015–2020</div><div class="ttl">品牌升维期</div><p>高端玻璃瓶、生肖瓶 IP、跨界密集。2020 港交所上市认购超 1148 倍。</p></div>
+            <div class="tl-item"><div class="yr">2021–2025</div><div class="ttl">生态成熟期</div><p>茶饮爆发双引擎成型，历经 2024 危机后 V 型反弹，营收首破 500 亿元。</p></div>
+        </div>
+    </div>
+    <div class="footer-mark">01 · 时间线</div>
+</section>
+
+<!-- ===== 5. 财务数据 ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <p class="eyebrow reveal">Financial Snapshot · 核心财务</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">8 年复合增速约 15%</h2>
+        <div class="reveal" style="max-width:min(90vw,900px);">
+            <table>
+                <thead><tr><th>指标</th><th>2017</th><th>2020</th><th>2024</th><th>2025</th></tr></thead>
+                <tbody>
+                    <tr><td>营收（亿元）</td><td>174.91</td><td>228.77</td><td>428.96</td><td>525.53</td></tr>
+                    <tr><td>净利率</td><td>19.4%</td><td>22.6%</td><td>26.8%</td><td>30.2%</td></tr>
+                    <tr><td>毛利率</td><td>—</td><td>55.4%</td><td>59.1%</td><td>60.5%</td></tr>
+                    <tr><td>ROE</td><td>37%+</td><td>40%+</td><td>43%+</td><td>46.76%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap);">高增长、高利润、高资本回报率三者并存——消费品行业罕见的<strong class="gold">持续增长韧性</strong>。</p>
+    </div>
+    <div class="footer-mark">01 · 财务数据</div>
+</section>
+
+<!-- ===== 6. 定位三次跃迁 ===== -->
+<section class="slide">
+    <div class="orb" style="width:28vw;height:28vw;background:var(--accent-teal);top:-6%;right:-4%;"></div>
+    <div class="slide-content">
+        <span class="section-num reveal">02</span>
+        <p class="eyebrow reveal" style="margin-top:.3em;">品牌定位与战略演变</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">品牌定位的三次跃迁</h2>
+        <div class="cards c3 reveal stagger">
+            <div class="tile"><div class="k">1997–2008</div><h3>"农夫山泉有点甜"</h3><p>从口感维度差异化，以"甜"对抗"纯净"，把抽象水质转化为可感知的味觉体验。<br><span class="accent">感性口感</span></p></div>
+            <div class="tile"><div class="k">2008 至今</div><h3>"大自然的搬运工"</h3><p>升级为理性品质主张，切入食品安全焦虑，传递"非人工制造"的核心信任状。<br><span class="accent">理性品质</span></p></div>
+            <div class="tile"><div class="k">新阶段</div><h3>"每一滴水都有源头"</h3><p>叙事上升至生态保护层面，为高端化与可持续战略提供精神内核。<br><span class="accent">生态价值</span></p></div>
+        </div>
+    </div>
+    <div class="footer-mark">02 · 品牌定位</div>
+</section>
+
+<!-- ===== 7. 品类之争 + 壁垒 ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <div class="two-col">
+            <div>
+                <p class="eyebrow reveal">世纪水战 · 2000</p>
+                <h2 class="reveal" style="margin:.3em 0;">天然水 vs 纯净水</h2>
+                <p class="reveal">2000 年 4 月，钟睒睒宣布<strong>永久停产纯净水</strong>。战略本质是"品类分化"——不在既有品类争份额，而是<strong class="accent">创造全新品类</strong>并定义自己为品类代言人，一己之力重塑消费者认知框架。</p>
+            </div>
+            <div class="reveal">
+                <p style="color:var(--text-primary);font-weight:500;margin-bottom:.6em;">三层差异化竞争壁垒</p>
+                <div class="cards" style="gap:.6rem;">
+                    <div class="tile"><h3>资源壁垒</h3><p>全国 13 省 18 县优质水源地，千岛湖、长白山、丹江口，天然排他不可复制。</p></div>
+                    <div class="tile"><h3>认知壁垒</h3><p>20 余年投入使"天然水=农夫山泉"心智根深蒂固，后来者难以撼动。</p></div>
+                    <div class="tile"><h3>规模壁垒</h3><p>超 300 万终端、约 62,900 台售货机、年均 12 亿广告投入筑起声量壁垒。</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-mark">02 · 竞争壁垒</div>
+</section>
+
+<!-- ===== 8. 经典案例 A ===== -->
+<section class="slide">
+    <div class="orb" style="width:30vw;height:30vw;background:var(--accent-gold);bottom:-10%;left:-6%;opacity:.25;"></div>
+    <div class="slide-content">
+        <span class="section-num reveal">03</span>
+        <p class="eyebrow reveal" style="margin-top:.3em;">经典营销案例解析（上）</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">定位与信任状的建立</h2>
+        <div class="cards c3 reveal stagger">
+            <div class="tile"><h3>"有点甜" · USP</h3><p>1997 年市场被娃哈哈、乐百氏占据、矿泉水企业超 1200 家时，以三个字避开"纯净度"正面竞争，从味觉切入，2000 年跻身前三。</p></div>
+            <div class="tile"><h3>"搬运工" · 信任状</h3><p>2008 年战略升级。"见证寻源之旅"邀 200+ 家媒体、近几万消费者实地参观水源地，把承诺转化为可验证事实。</p></div>
+            <div class="tile"><h3>纪录片广告</h3><p>2014 起开创行业先河。2018 冬季篇邀 BBC 团队 Silver Back 拍摄，全片无人影，以"什么水源孕育什么生命"完成品质背书。</p></div>
+        </div>
+    </div>
+    <div class="footer-mark">03 · 经典案例</div>
+</section>
+
+<!-- ===== 9. 经典案例 B ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <p class="eyebrow reveal">经典营销案例解析（下）</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">互动创新与跨界 IP</h2>
+        <div class="cards c3 reveal stagger">
+            <div class="tile"><div class="k">+407%</div><h3>"可跳过广告"</h3><p>2015–16 投放 137 秒贴片，首帧即提示可免费关闭。约 70% 观看超 30 秒，点击率较常规飙升 407%——尊重用户=更好传播。</p></div>
+            <div class="tile"><div class="k">6 亿瓶</div><h3>网易云"乐瓶"</h3><p>从 4 亿乐评精选 30 条印上瓶身，AR 扫描听歌。APP 下载达成超 300%、售卖超 6 倍，1700+ 家媒体传播，获 ROI Festival 银奖。</p></div>
+            <div class="tile"><div class="k">1 小时售罄</div><h3>故宫文化联名</h3><p>"故宫瓶"以清宫画像为设计，天猫首发 1 小时 500 瓶售罄。将功能型消费品提升为<strong>文化载体</strong>。</p></div>
+        </div>
+    </div>
+    <div class="footer-mark">03 · 跨界 IP</div>
+</section>
+
+<!-- ===== 10. 产品创新 ===== -->
+<section class="slide">
+    <div class="orb" style="width:28vw;height:28vw;background:var(--accent-teal);top:-6%;right:-4%;"></div>
+    <div class="slide-content">
+        <span class="section-num reveal">04</span>
+        <p class="eyebrow reveal" style="margin-top:.3em;">产品创新与设计营销</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">产品即媒体 · 每一瓶都是触点</h2>
+        <div class="cards c2 reveal stagger">
+            <div class="tile"><h3>高端玻璃瓶美学</h3><p>历时 3 年、5 家顶尖工作室、58 稿 300+ 方案。斩获 Pentawards 铂金、D&AD、Dieline 全球第一，成 G20 杭州峰会指定用水，树立品牌"塔尖形象"。</p></div>
+            <div class="tile"><h3>生肖瓶年度 IP</h3><p>一物一码实现 <strong class="accent">100% 中奖</strong>，覆盖 36 亿瓶活动产品，把低频收藏与高频消费绑定。</p></div>
+            <div class="tile"><h3>细分人群矩阵</h3><p>婴幼儿人体工学瓶、学生专利运动盖、长白雪白领水、泡茶水/做饭水——需求颗粒度极致细分。</p></div>
+            <div class="tile"><h3>"产品即媒体"</h3><p>乐评、故宫图案、生肖民俗……数十亿瓶流通=数十亿次品牌叙事，触达规模无广告媒介可比。</p></div>
+        </div>
+    </div>
+    <div class="footer-mark">04 · 产品创新</div>
+</section>
+
+<!-- ===== 11. 数字营销与渠道 ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <span class="section-num reveal">05</span>
+        <p class="eyebrow reveal" style="margin-top:.3em;">数字营销与渠道创新</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">从经验驱动到数据驱动</h2>
+        <div class="cards c2 reveal stagger">
+            <div class="tile"><h3>社媒矩阵</h3><p>微博（话题影响力 86.3）、微信（25 周年 H5 24h 破 10 万）、抖音（超品日曝光 1.5 亿、直播单日破 700 万）、小红书 UGC 种草。</p></div>
+            <div class="tile"><h3>一物一码</h3><p>每瓶独立数字身份，36 亿瓶构成庞大数据采集网络，2024 引入 AI 实现精准营销决策。</p></div>
+            <div class="tile"><h3>电商与 DTC</h3><p>传统渠道占比从 79.4% 降至 73.3%，电商 / 新零售增速 52.8% / 37.1%，自建"芝麻到家""送水到府"。</p></div>
+            <div class="tile"><h3>终端精耕</h3><p>超 <strong class="accent">300 万</strong> 终端网点下沉至乡镇，62,900 台售货机覆盖即时购买场景，数字化实现最后一公里。</p></div>
+        </div>
+    </div>
+    <div class="footer-mark">05 · 数字与渠道</div>
+</section>
+
+<!-- ===== 12. 市场竞争与效果 ===== -->
+<section class="slide">
+    <div class="orb" style="width:30vw;height:30vw;background:var(--accent-gold);bottom:-10%;left:-6%;opacity:.25;"></div>
+    <div class="slide-content">
+        <span class="section-num reveal">06</span>
+        <p class="eyebrow reveal" style="margin-top:.3em;">市场竞争与营销效果</p>
+        <h2 class="reveal" style="margin:.3em 0 .5em;">双引擎驱动的"一超多强"格局</h2>
+        <div class="stat-row reveal" style="margin:.2em 0 var(--content-gap);">
+            <div class="stat"><div class="num">2470<span style="font-size:.4em;">亿</span></div><div class="lbl">2024 瓶装水市场规模</div></div>
+            <div class="stat"><div class="num gold">167.45<span style="font-size:.4em;">亿</span></div><div class="lbl">茶饮收入 · +32.3% 首超包装水</div></div>
+            <div class="stat"><div class="num">120<span style="font-size:.4em;">亿+</span></div><div class="lbl">东方树叶 · 坚守 12 年爆发</div></div>
+            <div class="stat"><div class="num red">1148<span style="font-size:.4em;">倍</span></div><div class="lbl">2020 港股认购 · "冻资王"</div></div>
+        </div>
+        <p class="reveal">农夫山泉以 23.6%–26.5% 稳居首位，华润怡宝 18.4%–21.3% 第二，行业 CR5 约 60%。茶饮料首超包装水，标志从"水企业"向<strong class="accent">综合饮料集团</strong>转型完成。每投入 1 元销售费用约带来 5.7 元营收。</p>
+    </div>
+    <div class="footer-mark">06 · 市场竞争</div>
+</section>
+
+<!-- ===== 13. 危机与重建 ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <span class="section-num reveal">07</span>
+        <p class="eyebrow reveal" style="margin-top:.3em;">2024–2025 危机与品牌重建</p>
+        <h2 class="reveal" style="margin:.3em 0 .5em;">从口碑骤降到 V 型反弹</h2>
+        <div class="two-col" style="align-items:stretch;">
+            <div class="reveal">
+                <div class="tile" style="border-color:rgba(217,95,82,.4);">
+                    <p style="color:var(--accent-red);font-weight:600;margin-bottom:.5em;">危机烈度（2024.2–3）</p>
+                    <ul class="bullet-list">
+                        <li>相关信息量 <strong>539 万条</strong>，微博话题阅读超 <strong>50 亿</strong></li>
+                        <li>抖音视频播放破百亿，四平台共振</li>
+                        <li>网络口碑 58.1 → 32.0，<strong>骤降 44.9%</strong></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="reveal">
+                <div class="tile" style="border-color:rgba(111,206,159,.4);">
+                    <p style="color:var(--accent-spring);font-weight:600;margin-bottom:.5em;">系统性应对 · 短期止血→长期增值</p>
+                    <ul class="bullet-list">
+                        <li>辟谣 20 条核心谣言，钟睒睒三登央视《对话》</li>
+                        <li>绿瓶纯净水 9.9 元/12 瓶快速回收消费者</li>
+                        <li>红瓶营收占比修复至 <strong>82%</strong>，水源地加码至 16 个</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap);">2025 全面反弹：营收 <strong class="accent">525.53 亿（+22.5%）</strong>，净利率 30.19% 创新高，股价从 23 港元触底反弹至 46.35 港元，涨幅超 100%。</p>
+    </div>
+    <div class="footer-mark">07 · 危机重建</div>
+</section>
+
+<!-- ===== 14. 国际化与对比 ===== -->
+<section class="slide">
+    <div class="orb" style="width:28vw;height:28vw;background:var(--accent-teal);top:-6%;right:-4%;"></div>
+    <div class="slide-content">
+        <span class="section-num reveal">08</span>
+        <p class="eyebrow reveal" style="margin-top:.3em;">国际化战略与品牌对比</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">对标百事，先品质后规模</h2>
+        <div class="cards c3 reveal stagger">
+            <div class="tile"><h3>vs 依云</h3><p>农夫"金字塔型"定价，以大众规模支撑高端投入；依云"倒金字塔"在华高端失守，终端从 20 元跌至 3–7 元。</p></div>
+            <div class="tile"><h3>vs 可口可乐</h3><p>农夫是"产品驱动型"（先理性信任后情感连接）；可口可乐"情感驱动型"，覆盖 200+ 国、2800 万+ 终端。</p></div>
+            <div class="tile"><h3>出海路径</h3><p>以高端矿泉水与无糖茶为先锋切入，先建高端认知再向大众渗透。全球高端水年复合增速 8.5%，无糖茶契合减糖趋势。</p></div>
+        </div>
+    </div>
+    <div class="footer-mark">08 · 国际化</div>
+</section>
+
+<!-- ===== 15. 方法论 ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <span class="section-num reveal">09</span>
+        <p class="eyebrow reveal" style="margin-top:.3em;">品牌营销方法论总结</p>
+        <h2 class="reveal" style="margin:.3em 0 .5em;">五大独特方法论</h2>
+        <div class="cards c3 reveal stagger" style="margin-bottom:var(--content-gap);">
+            <div class="tile"><div class="k">01</div><h3>水源地 IP 化</h3><p>物理资源转化为品牌资产与故事核心素材。</p></div>
+            <div class="tile"><div class="k">02</div><h3>产品即媒体</h3><p>36 亿瓶 = 36 亿次品牌触达。</p></div>
+            <div class="tile"><div class="k">03</div><h3>长期主义</h3><p>东方树叶 12 年坚守验证复利效应。</p></div>
+            <div class="tile"><div class="k">04</div><h3>品类分化</h3><p>创造新品类而非在旧品类中竞争。</p></div>
+            <div class="tile"><div class="k">05</div><h3>认知×物理双轨</h3><p>广告建心智，水源与渠道筑壁垒。</p></div>
+            <div class="tile" style="background:linear-gradient(160deg,rgba(111,206,159,.14),rgba(63,168,137,.05));"><h3 class="accent">四力驱动模型</h3><p>竞争力 = 品类占位 × 认知强度 × 配称深度 × 时间长度。</p></div>
+        </div>
+    </div>
+    <div class="footer-mark">09 · 方法论</div>
+</section>
+
+<!-- ===== 16. 五阶段战略演进表 ===== -->
+<section class="slide">
+    <div class="slide-content">
+        <p class="eyebrow reveal">Strategic Evolution · 五阶段战略演进</p>
+        <h2 class="reveal" style="margin:.3em 0 .6em;">主题与关键动作全景</h2>
+        <div class="reveal" style="max-width:min(94vw,1000px);">
+            <table>
+                <thead><tr><th>阶段</th><th style="text-align:left;">时期</th><th style="text-align:left;">核心主题</th><th style="text-align:left;">关键动作</th></tr></thead>
+                <tbody>
+                    <tr><td>品类破局期</td><td style="text-align:left;">1996–2000</td><td style="text-align:left;">创造新品类</td><td style="text-align:left;">"有点甜" + 停产纯净水</td></tr>
+                    <tr><td>品牌深耕期</td><td style="text-align:left;">2001–2007</td><td style="text-align:left;">巩固心智</td><td style="text-align:left;">水源地建设 + 渠道扩张</td></tr>
+                    <tr><td>多元扩张期</td><td style="text-align:left;">2008–2014</td><td style="text-align:left;">品类延伸</td><td style="text-align:left;">"搬运工" + 多品类布局</td></tr>
+                    <tr><td>品牌升维期</td><td style="text-align:left;">2015–2020</td><td style="text-align:left;">高端化 + IP 化</td><td style="text-align:left;">玻璃瓶 + 生肖瓶 + 上市</td></tr>
+                    <tr><td>生态成熟期</td><td style="text-align:left;">2021–2025</td><td style="text-align:left;">双引擎驱动</td><td style="text-align:left;">茶饮爆发 + 危机重建</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="reveal" style="margin-top:var(--content-gap);">适用边界：品类长期性 · 创始人强驱动 · 充足资本支撑，三者缺一不可复制。</p>
+    </div>
+    <div class="footer-mark">09 · 战略演进</div>
+</section>
+
+<!-- ===== 17. 启示 QUOTE ===== -->
+<section class="slide">
+    <div class="orb" style="width:34vw;height:34vw;background:var(--accent-teal);top:50%;left:50%;transform:translate(-50%,-50%);opacity:.35;"></div>
+    <div class="slide-content" style="align-items:center;text-align:center;">
+        <span class="section-num reveal">10</span>
+        <p class="eyebrow reveal" style="justify-content:center;margin-top:.4em;">结论与启示</p>
+        <p class="pull-quote reveal" style="margin:.4em 0;max-width:min(92vw,980px);">"品类思维优于品牌思维，<br><span class="accent">长期主义</span>是最大的竞争壁垒，<br>而危机，是品牌实力的<span class="gold">试金石</span>。"</p>
+        <p class="reveal" style="max-width:min(80vw,720px);">品类创新的勇气 · 产品主义的坚守 · 传播创新的基因 · 渠道深耕的韧性 · 危机修复的能力——五个核心要素成就从后来者到行业霸主的跃迁。</p>
+    </div>
+    <div class="footer-mark">10 · 结论启示</div>
+</section>
+
+<!-- ===== 18. 未来展望 CLOSING ===== -->
+<section class="slide title-slide">
+    <div class="orb" style="width:30vw;height:30vw;background:var(--accent-gold);bottom:-8%;right:-4%;opacity:.28;"></div>
+    <div class="slide-content container">
+        <p class="eyebrow reveal">Future Outlook · 未来展望</p>
+        <h2 class="reveal" style="margin:.35em 0 .5em;font-size:var(--title-size);">三个关键战略命题</h2>
+        <div class="cards c3 reveal stagger" style="margin-bottom:var(--content-gap);">
+            <div class="tile"><h3 class="accent">国际化突破</h3><p>从中国冠军到全球品牌，需在叙事、渠道、文化适应性全面升级。</p></div>
+            <div class="tile"><h3 class="accent">第二曲线持续性</h3><p>东方树叶爆发能否持续？先发优势能否转化为长期壁垒。</p></div>
+            <div class="tile"><h3 class="accent">后创始人时代</h3><p>从"创始人驱动"到"组织驱动"的平稳传承，是长期命题。</p></div>
+        </div>
+        <p class="title-tag reveal">用 28 年书写世界级水准的营销样本</p>
+    </div>
+    <div class="footer-mark">农夫山泉品牌营销案例报告 · 完</div>
+</section>
+
+<script>
+/* ===========================================
+   SLIDE PRESENTATION CONTROLLER
+   =========================================== */
+class SlidePresentation {
+    constructor() {
+        this.slides = document.querySelectorAll(".slide");
+        this.currentSlide = 0;
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupProgressBar();
+        this.setupNavDots();
+        this.setupIndex();
+        this.slides[0].classList.add('visible');
+    }
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const idx = Array.from(this.slides).indexOf(entry.target);
+                    if (idx !== -1) this.currentSlide = idx;
+                    this.updateNavDots(); this.updateProgressBar(); this.updateIndex();
+                }
+            });
+        }, { threshold: 0.5 });
+        this.slides.forEach(slide => observer.observe(slide));
+    }
+    setupKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            if (['ArrowDown','ArrowRight',' ','PageDown'].includes(e.key)) { e.preventDefault(); this.goToSlide(this.currentSlide + 1); }
+            else if (['ArrowUp','ArrowLeft','PageUp'].includes(e.key)) { e.preventDefault(); this.goToSlide(this.currentSlide - 1); }
+        });
+    }
+    setupTouchNav() {
+        let startY = 0;
+        document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, {passive:true});
+        document.addEventListener('touchend', e => {
+            const diff = startY - e.changedTouches[0].clientY;
+            if (Math.abs(diff) > 50) this.goToSlide(this.currentSlide + (diff > 0 ? 1 : -1));
+        });
+    }
+    setupProgressBar() { this.progressBar = document.querySelector('.progress-bar'); this.updateProgressBar(); }
+    setupNavDots() {
+        this.navDotsContainer = document.querySelector('.nav-dots');
+        if (!this.navDotsContainer) return;
+        this.navDotsContainer.innerHTML = "";
+        this.slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.classList.add('nav-dot');
+            dot.setAttribute('aria-label', '前往第 ' + (i+1) + ' 页');
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.navDotsContainer.appendChild(dot);
+        });
+        this.updateNavDots();
+    }
+    setupIndex() { this.indexEl = document.querySelector('.slide-index'); this.updateIndex(); }
+    goToSlide(index) { if (index < 0 || index >= this.slides.length) return; this.slides[index].scrollIntoView({ behavior: 'smooth' }); }
+    updateNavDots() {
+        if (!this.navDotsContainer) return;
+        this.navDotsContainer.querySelectorAll('.nav-dot').forEach((dot, i) => { dot.classList.toggle('active', i === this.currentSlide); });
+    }
+    updateProgressBar() { if (this.progressBar) this.progressBar.style.width = ((this.currentSlide+1)/this.slides.length*100)+'%'; }
+    updateIndex() { if (this.indexEl) this.indexEl.textContent = String(this.currentSlide+1).padStart(2,'0') + ' / ' + String(this.slides.length).padStart(2,'0'); }
+}
+new SlidePresentation();
+</script>
+</body>
+</html>
